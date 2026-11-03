@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><Version>0.9.14</Version><AssemblyName>StairBuilder</AssemblyName><RootNamespace>StairBuilder</RootNamespace></PropertyGroup>
+ <Import Project="$(CSII_TOOLPATH)\Mod.props"/><Import Project="$(CSII_TOOLPATH)\Mod.targets"/>
+ <PropertyGroup><UserDataPath>$(CSII_USERDATAPATH)</UserDataPath><UnityModProjectPath>$(CSII_UNITYMODPROJECTPATH)</UnityModProjectPath><ModPostProcessorPath>$(CSII_MODPOSTPROCESSORPATH)</ModPostProcessorPath><MSCORLIBPath>$(CSII_MSCORLIBPATH)</MSCORLIBPath><LocalModsPath>$(MSBuildProjectDirectory)\..\local</LocalModsPath></PropertyGroup>
+ <ItemGroup><Reference Include="Newtonsoft.Json;Game;Colossal.Core;Colossal.Logging;Colossal.IO.AssetDatabase;Colossal.Collections;Colossal.Mathematics;Colossal.Localization;Colossal.UI;Colossal.UI.Binding;UnityEngine.ScreenCaptureModule;UnityEngine.AudioModule;UnityEngine.CoreModule;UnityEngine.JSONSerializeModule;UnityEngine.ImageConversionModule;Unity.InputSystem;Unity.Collections;Unity.Entities;Unity.Mathematics;Unity.RenderPipelines.HighDefinition.Runtime;Unity.RenderPipelines.Core.Runtime"><Private>false</Private></Reference><Reference Update="System;System.Core;System.Data"><Private>false</Private></Reference></ItemGroup>
+ <ItemGroup><PackageReference Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="compile;runtime" PrivateAssets="all"/><Content Include="$(NuGetPackageRoot)lib.harmony\2.3.3\lib\net48\0Harmony.dll"><Link>0Harmony.dll</Link><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content></ItemGroup>
+ <Target Name="DeployBridge" AfterTargets="AfterBuild" Condition="'$(NeedBuild)'"><Copy SourceFiles="$(OutDir)0Harmony.dll" DestinationFolder="$(DeployDir)"/></Target>
+</Project>
+
+
+

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<title>Stair Builder</title>
+<path fill="#286481" d="M14 30 26 24V12l-4 2v4l-4 2v4l-4 2Z"/>
+<path fill="#91c5df" d="m2 20 12 6v4L2 24Zm4-6 12 6v4L6 18Zm4-6 12 6v4l-12-6Z"/>
+<path fill="#fff" d="m2 20 4-2 12 6-4 2Zm4-6 4-2 12 6-4 2Zm4-6 4-2 12 6-4 2Z"/>
+<path fill="#fff" d="M25 1.5a.7.7 0 0 0-.7.7V5h-2.8a.7.7 0 0 0-.7.7v1.6a.7.7 0 0 0 .7.7h2.8v2.8a.7.7 0 0 0 .7.7h1.6a.7.7 0 0 0 .7-.7V8h2.8a.7.7 0 0 0 .7-.7V5.7a.7.7 0 0 0-.7-.7h-2.8V2.2a.7.7 0 0 0-.7-.7Z"/>
+</svg>

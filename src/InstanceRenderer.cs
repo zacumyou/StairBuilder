@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+namespace StairBuilder {
+internal sealed class InstanceRenderer:MonoBehaviour {
+ sealed class State {internal Visual Visual;internal int Lod=-2;internal Matrix4x4 Matrix;}
+ sealed class Batch {internal Mesh Mesh;internal Material Material;internal int Sub;internal readonly List<Matrix4x4> Matrices=new List<Matrix4x4>();internal Bounds Bounds;}
+ static InstanceRenderer host;static readonly List<State> states=new List<State>();static bool dirty;static readonly Dictionary<string,Batch> batches=new Dictionary<string,Batch>();
+ static readonly Matrix4x4[] scratch=new Matrix4x4[1023];internal static int Mode=2;internal static string Error="";internal static long DrawCalls;internal static int InstanceCount;
+ internal static List<Renderer> Prepare(Visual owner,List<MeshBatch.Part> parts,int lod){if(Mode==2)return MeshBatch.Build(owner,parts);var fallback=new List<MeshBatch.Part>();foreach(var part in parts){bool supported=SystemInfo.supportsInstancing;foreach(var m in part.Materials)if(m==null||!m.shader.isSupported||m.renderQueue>=3000)supported=false;if(supported)owner.Instances[lod].Add(part);else fallback.Add(part);}return MeshBatch.Build(owner,fallback);}
+ internal static void Add(Visual v){if(v.Instances[0].Count+v.Instances[1].Count+v.Instances[2].Count==0)return;if(host==null){var go=new GameObject("Stair shared instance renderer");host=go.AddComponent<InstanceRenderer>();}states.Add(new State{Visual=v});dirty=true;}
+ internal static void Remove(Visual v){states.RemoveAll(s=>ReferenceEquals(s.Visual,v));dirty=true;}
+ internal static void Shutdown(){states.Clear();batches.Clear();if(host!=null)Destroy(host.gameObject);host=null;dirty=true;Error="";DrawCalls=0;InstanceCount=0;}
+ internal static void SetMode(int mode){if(mode<0||mode>2)throw new ArgumentOutOfRangeException("mode");Mode=mode;Error="";dirty=true;}
+ void LateUpdate(){try{var camera=Camera.main;if(camera==null||Error.Length!=0)return;
+  float projection=2*Mathf.Tan(camera.fieldOfView*Mathf.Deg2Rad*.5f);foreach(var s in states){var v=s.Visual;var matrix=v.Root.transform.localToWorldMatrix;int lod=-1;if(v.Root.activeInHierarchy){float distance=Mathf.Max(.01f,Vector3.Distance(camera.transform.position,matrix.MultiplyPoint3x4(v.InstanceBounds.center)));float size=Mathf.Max(v.InstanceBounds.size.x,Mathf.Max(v.InstanceBounds.size.y,v.InstanceBounds.size.z));float relative=size*QualitySettings.lodBias/(camera.orthographic?2*camera.orthographicSize:distance*projection);lod=relative>=.16f?0:relative>=.045f?1:relative>=.002f?2:-1;}if(s.Lod!=lod||s.Matrix!=matrix){s.Lod=lod;s.Matrix=matrix;dirty=true;}}
+  if(dirty){batches.Clear();InstanceCount=0;foreach(var s in states){if(s.Lod<0)continue;foreach(var part in s.Visual.Instances[s.Lod]){var matrix=s.Matrix*Matrix4x4.TRS(part.Position,part.Rotation,part.Scale);var pos=matrix.MultiplyPoint3x4(Vector3.zero);for(int sub=0;sub<part.Materials.Length;sub++){var mat=part.Materials[sub];string key=part.Mesh.GetInstanceID()+":"+mat.GetInstanceID()+":"+sub+":"+Mathf.FloorToInt(pos.x/128)+":"+Mathf.FloorToInt(pos.z/128);if(!batches.TryGetValue(key,out var b)){b=new Batch{Mesh=part.Mesh,Material=mat,Sub=sub,Bounds=new Bounds(pos,Vector3.zero)};batches.Add(key,b);}b.Matrices.Add(matrix);var mb=part.Mesh.bounds;var c=matrix.MultiplyPoint3x4(mb.center);var e=mb.extents;var ex=matrix.MultiplyVector(new Vector3(e.x,0,0));var ey=matrix.MultiplyVector(new Vector3(0,e.y,0));var ez=matrix.MultiplyVector(new Vector3(0,0,e.z));var ext=new Vector3(Mathf.Abs(ex.x)+Mathf.Abs(ey.x)+Mathf.Abs(ez.x),Mathf.Abs(ex.y)+Mathf.Abs(ey.y)+Mathf.Abs(ez.y),Mathf.Abs(ex.z)+Mathf.Abs(ey.z)+Mathf.Abs(ez.z));b.Bounds.Encapsulate(new Bounds(c,ext*2));InstanceCount++;}}}dirty=false;}
+  foreach(var b in batches.Values){var rp=new RenderParams(b.Material){camera=null,worldBounds=b.Bounds,shadowCastingMode=ShadowCastingMode.On,receiveShadows=true,renderingLayerMask=1u|(StairRenderer.SurfaceReceiverMask<<8)};for(int start=0;start<b.Matrices.Count;start+=1023){int count=Math.Min(1023,b.Matrices.Count-start);b.Matrices.CopyTo(start,scratch,0,count);if(Mode==1)Graphics.DrawMeshInstanced(b.Mesh,b.Sub,b.Material,scratch,count,null,ShadowCastingMode.On,true,0,null,LightProbeUsage.Off);else Graphics.RenderMeshInstanced(rp,b.Mesh,b.Sub,scratch,count);DrawCalls++;}}
+ }catch(Exception e){Error=e.ToString();Mod.Log.Error(e,"Stair instancing failed");}}
+}
+}
