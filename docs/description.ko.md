@@ -9,7 +9,9 @@
 
 **필수 에셋:** [CS KR Stair Builder Dependency](https://mods.paradoxplaza.com/mods/166122/Windows)를 함께 구독하고 같은 플레이셋에서 활성화해주세요. 에셋 팩만으로는 계단 제작 도구가 나타나지 않습니다.
 
-**지원 언어:** 한국어, 영어. [Gizmo XYZ](https://mods.paradoxplaza.com/mods/159946/Windows)는 선택 사항입니다.
+**지원 언어:** 한국어, 영어.
+
+**추천 모드:** [Gizmo XYZ](https://mods.paradoxplaza.com/mods/159946/Windows) (선택 사항).
 
 ## 주요 기능
 

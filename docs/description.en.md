@@ -10,7 +10,9 @@ A path up to a hilltop park, a narrow passage beside a building, or a timber dec
 
 **Required assets:** Subscribe to [CS KR Stair Builder Dependency](https://mods.paradoxplaza.com/mods/166122/Windows) and enable it in the same playset as Stair Builder. The asset pack alone does not provide the building tool.
 
-**Languages:** English and Korean. [Gizmo XYZ](https://mods.paradoxplaza.com/mods/159946/Windows) is optional.
+**Languages:** English and Korean.
+
+**Recommended Mods:** [Gizmo XYZ](https://mods.paradoxplaza.com/mods/159946/Windows) (optional).
 
 ## Features
 
