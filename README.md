@@ -5,7 +5,7 @@ Version **0.9.14**. A Cities: Skylines II code mod for customizable stairs and r
 - [Download on Paradox Mods](https://mods.paradoxplaza.com/mods/166123/Windows)
 - [English guide](docs/description.en.md)
 - [한국어 사용법](docs/description.ko.md)
-- [Required asset pack](https://mods.paradoxplaza.com/mods/166122/Any)
+- [Required asset pack](https://mods.paradoxplaza.com/mods/166122/Windows)
 - [Questions and bug reports](https://forum.paradoxplaza.com/forum/threads/mod-stair-builder-custom-stairs-and-ramps-discussion-feedback.1948247/)
 
 ## Build

@@ -8,7 +8,7 @@ A path up to a hilltop park, a narrow passage beside a building, or a timber dec
 
 ## Installation
 
-**Required assets:** Subscribe to [CS KR Stair Builder Dependency](https://mods.paradoxplaza.com/mods/166122/Any) and enable it in the same playset as Stair Builder. The asset pack alone does not provide the building tool.
+**Required assets:** Subscribe to [CS KR Stair Builder Dependency](https://mods.paradoxplaza.com/mods/166122/Windows) and enable it in the same playset as Stair Builder. The asset pack alone does not provide the building tool.
 
 **Languages:** English and Korean. [Gizmo XYZ](https://mods.paradoxplaza.com/mods/159946/Windows) is optional.
 
@@ -46,14 +46,12 @@ For a sloped walkway, choose **Layout → Ramp**. If the slope is too steep, inc
 
 Open the **Appearance** tab and choose a colored style icon. You can change styles while creating a staircase or editing an existing one.
 
-| Style | A good fit for |
-| --- | --- |
-| Classic | Everyday stairs |
-| Modern | Neat parks and newer buildings |
-| Weathered | Older streets and lived-in spaces |
-| Tunnel | Covered stairways |
-| Steel | Industrial sites and exterior metal stairs |
-| Timber Deck | Hiking trails, walking paths, and woodland rest areas |
+- **Classic** — Everyday stairs
+- **Modern** — Neat parks and newer buildings
+- **Weathered** — Older streets and lived-in spaces
+- **Tunnel** — Covered stairways
+- **Steel** — Industrial sites and exterior metal stairs
+- **Timber Deck** — Hiking trails, walking paths, and woodland rest areas
 
 Choose the **railing** separately. Keep the style's default, try another railing or curb, or leave the sides open.
 
